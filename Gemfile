@@ -26,7 +26,7 @@ gem 'rubocop-rails'
 gem 'rubocop-require_tools', '~> 0.1.2'
 gem 'rubocop-rspec'
 
-gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'bootsnap', require: false
 
@@ -35,10 +35,11 @@ gem 'bootsnap', require: false
 # gem "rack-cors"
 
 group :development, :test do
-  gem 'debug', platforms: %i[ mri mingw x64_mingw ]
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'rspec-rails', git: 'git@github.com:rspec/rspec-rails.git', branch: '6-0-maintenance'
+  gem 'shoulda-matchers', '~> 5.1.0'
 end
 
 group :development do

@@ -1,29 +1,14 @@
 class Api::V1::Weather::HistoricalController < ApplicationController
 
   def max
-    information = WeatherClient.new.history
-    historical_data = []
-    information.each do |hash|
-      historical_data << hash['Temperature']['Metric']['Value']
-    end
-    render json: historical_data.max
+    render json: WeatherService.new.max
   end
 
   def min
-    information = WeatherClient.new.history
-    historical_data = []
-    information.each do |hash|
-      historical_data << hash['Temperature']['Metric']['Value']
-    end
-    render json: historical_data.min
+    render json: WeatherService.new.min
   end
 
   def avg
-    information = WeatherClient.new.history
-    avg = 0
-    information.each do |hash|
-      avg += hash['Temperature']['Metric']['Value']
-    end
-    render json: (avg / information.count)
+    render json: WeatherService.new.avg
   end
 end

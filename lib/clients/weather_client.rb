@@ -8,13 +8,16 @@ class WeatherClient
   end
 
   def current_conditions
-    response = get_request("#{ROOT_ENDPOINT}currentconditions/v1/#{DEFAULT_CITY_LOCATION_KEY}?apikey=#{ENV['API_KEY']}").body
-    JSON.parse(response) if response.present?
+    response = get_request(current_conditions_url, apikey: Rails.application.credentials.api_key)
+    JSON.parse(response.body).first if response.status.eql?(200)
   end
 
   def history
-    response = get_request("#{ROOT_ENDPOINT}currentconditions/v1/#{DEFAULT_CITY_LOCATION_KEY}/historical/24?apikey=#{ENV['API_KEY']}").body
-    JSON.parse(response) if response.present?
+    response = get_request(
+      "#{current_conditions_url}/historical/24",
+      apikey: Rails.application.credentials.api_key
+    )
+    JSON.parse(response.body) if response.status.eql?(200)
   end
 
   private
@@ -24,6 +27,10 @@ class WeatherClient
       request.headers['Content-Type'] = 'application/json'
       request.body.to_json
     end
+  end
+
+  def current_conditions_url
+    "#{ROOT_ENDPOINT}currentconditions/v1/#{DEFAULT_CITY_LOCATION_KEY}"
   end
 
   def setup_client

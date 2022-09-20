@@ -1,21 +1,19 @@
 class Api::V1::WeatherController < ApplicationController
 
   def current
-    current_condition = WeatherClient.new.current_conditions.first
-    render json: current_condition['Temperature']['Metric']['Value']
+    render json: WeatherService.new.current
   end
 
   def historical
-    information = WeatherClient.new.history
-    historical_data = []
-    information.each do |hash|
-      historical_data << { date: hash['LocalObservationDateTime'],
-                           temperature: hash['Temperature']['Metric']['Value'] }
-    end
-    render json: historical_data
+    render json: WeatherService.new.client.history
   end
 
   def by_time
-    render json: 'By_time'
+    response = WeatherService.new.by_time(params[:timestamp])
+    if response.present?
+      render json: response
+    else
+      head :not_found
+    end
   end
 end

@@ -5,7 +5,7 @@ class Api::V1::WeatherController < ApplicationController
   end
 
   def historical
-    render json: WeatherService.new.client.history
+    render json: WeatherService.new.historical
   end
 
   def by_time

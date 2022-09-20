@@ -42,6 +42,8 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 5.1.0'
 end
 
+gem 'rswag'
+
 group :development do
   # gem "spring"
 end
